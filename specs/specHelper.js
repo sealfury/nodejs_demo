@@ -4,4 +4,8 @@ const sinonChai = require('sinon-chai')
 
 chai.use(sinonChai)
 
-module.exports = { expect }
+const jsonResponse = response => {
+  return JSON.stringify(response.body)
+}
+
+module.exports = { expect, jsonResponse }
