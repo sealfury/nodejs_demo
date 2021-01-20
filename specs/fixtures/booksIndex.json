@@ -1,0 +1,13 @@
+{
+  "books": [
+    { "id": 1, "author": "J.K. Rowling", "title": "Harry Potter" },
+    {
+      "id": 2,
+      "author": "A. Lindgren",
+      "title": "The Adventures of Pippi Longstocking"
+    },
+    { "id": 6, "author": "John Irving", "title": "Setting Free The Bears" },
+    { "id": 7, "author": "David Mitchell", "title": "Star Of The Sea" },
+    { "id": 3, "author": "T. Ochman", "title": "Fun With Postgres part II" }
+  ]
+}

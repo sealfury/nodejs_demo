@@ -2,6 +2,7 @@ const app = require("../../server");
 const supertest = require("supertest");
 const { expect, jsonResponse } = require("../specHelper");
 const { after } = require("mocha");
+const fs = require('fs')
 
 let server, request, response;
 
@@ -24,7 +25,11 @@ describe("GET /books", () => {
   });
 
   it('is expected to return a collection of books', () => {
-    const expectedBody = '{"books":[{"id":1,"author":"J.K. Rowling","title":"Harry Potter"},{"id":2,"author":"A. Lindgren","title":"The Adventures of Pippi Longstocking"},{"id":6,"author":"John Irving","title":"Setting Free The Bears"},{"id":7,"author":"David Mitchell","title":"Star Of The Sea"},{"id":3,"author":"T. Ochman","title":"Fun With Postgres part II"}]}'
-    expect(jsonResponse(response)).to.equal(expectedBody)
+    let expectedBody = JSON.parse(
+      fs.readFileSync(
+        process.cwd() + "/specs/fixtures/booksIndex.json"
+      ).toString()
+    )
+    expect(jsonResponse(response)).to.equal(JSON.stringify(expectedBody))
   });
 });
