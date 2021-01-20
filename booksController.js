@@ -1,4 +1,5 @@
 const { pool } = require("./config");
+const { wsServer, WebSocket } = require('./wsConfig')
 
 const booksController = {
   async index(request, response, next) {
@@ -11,6 +12,18 @@ const booksController = {
       author,
       title,
     ]);
+    wsServer.clients.forEach(client => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(
+          JSON.stringify({
+            book: {
+              title: title,
+              author: author
+            }
+          })
+        )
+      }
+    });
     response.status(201).json({ message: "Book was added to the db" });
   },
   async show(request, response, next) {
