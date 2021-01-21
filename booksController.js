@@ -44,9 +44,10 @@ const booksController = {
     const { author, title } = request.body;
     const { id } = request.params;
     const { rows } = await pool.query(
-      `UPDATE books
-      SET author = $1, title = $2
-      WHERE id = $3`,
+      `UPDATE books SET
+      author = COALESCE($1, author), title = COALESCE($2, title)
+      WHERE id = $3
+      RETURNING *`,
       [author, title, id]
     );
     response
